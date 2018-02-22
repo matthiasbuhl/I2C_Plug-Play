@@ -1,3 +1,8 @@
+
+
+//#include <Wire.h>
+
+
 // Wire Slave Sender
 // by Nicholas Zambetti <http://www.zambetti.com>
 
@@ -9,9 +14,11 @@
 
 // This example code is in the public domain.
 #include <Wire.h>
+#include <ArduinoJson.h>
 
 
-
+char json[] = {};
+bool jsonreceived = false;
 
 
 void setup() {
@@ -19,36 +26,71 @@ void setup() {
   //Wire.onRequest(requestEvent); // register event
   Serial.begin(9600);
   Wire.onReceive(receiveEvent);
-  
+
 }
 
 void loop () {
   delay(1000);
   Serial.println("workin");
+  Serial.println(json);
+  parseJson();
+
 }
 
 
 // function that executes whenever data is requested by master
 // this function is registered as an event, see setup()
 /*
-void requestEvent() {
+  void requestEvent() {
   if (firsttime == true) {
   Wire.write(7);
   firsttime = false;
   }
   else {
-  Wire.write(message);  
+  Wire.write(message);
   }
-} */
+  } */
 
 void receiveEvent(int howMany) {
   Serial.println(howMany);
-  String inString = "";  
+  String inString = "";
   while (Wire.available()) {
-   inString += char(Wire.read());
-   
+    inString += char(Wire.read());
   }
-  Serial.println(inString);
+  inString.toCharArray(json, 32);
+  jsonreceived = true;
 }
+
+
+void parseJson() {
+  if (jsonreceived == true) {
+    const int BUFFER_SIZE = JSON_OBJECT_SIZE(4) + JSON_ARRAY_SIZE(0);
+    StaticJsonBuffer<BUFFER_SIZE> jsonBuffer;
+    JsonObject& root = jsonBuffer.parseObject(json);
+
+    if (!root.success()) {
+      Serial.println("parseObject() failed");
+      return;
+    }
+    
+    const char* name = root["name"];
+    long id = root["id"];
+    int category = root ["category"][0];
+    const char* fnct1 = root["fnct"][0];
+    const char* fnct2 = root["fnct"][1];
+    int cmd1 = root["cmd"][0];
+    
+    Serial.print("Device: ");
+    Serial.println(name);
+    Serial.print("ID: ");
+    Serial.println(id);
+    Serial.print("Category: ");
+    Serial.println(category);
+
+
+  }
+  jsonreceived = true;
+}
+
 
 
