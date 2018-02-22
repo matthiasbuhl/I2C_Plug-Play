@@ -94,14 +94,13 @@ void transmit_json() {
       }
       //Serial.println(sub);
     */
-    const int BUFFER_SIZE = JSON_OBJECT_SIZE(2) + JSON_ARRAY_SIZE(0);
+    const int BUFFER_SIZE = JSON_OBJECT_SIZE(10) + JSON_ARRAY_SIZE(10);
     StaticJsonBuffer<BUFFER_SIZE> jsonBuffer;
     Serial.println(BUFFER_SIZE);
 
     JsonObject& root = jsonBuffer.createObject();
     root["id"] = 60106401;
     root["name"] = "DPS310";
-    /*
     JsonArray& category = root.createNestedArray("category");
     category.add(5);
     category.add(10);
@@ -110,14 +109,13 @@ void transmit_json() {
     fnct.add("getTemp_C");
     JsonArray& cmd = root.createNestedArray("cmd");
     cmd.add(1);
-    cmd.add(2);
+    cmd.add(2);    
     JsonArray& datalength = root.createNestedArray("datalength");
     datalength.add(16);
     datalength.add(16);
-    */
     
-    char buffer[32];
-    root.printTo(buffer, 32);
+    char buffer[128];
+    root.printTo(buffer, 128);
     Serial.print("Created json: ");
     Serial.println(buffer);
     Wire.beginTransmission(8);
