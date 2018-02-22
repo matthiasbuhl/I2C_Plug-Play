@@ -57,14 +57,14 @@ void receiveEvent(int howMany) {
   while (Wire.available()) {
     inString += char(Wire.read());
   }
-  inString.toCharArray(json, 32);
+  inString.toCharArray(json, 128);
   jsonreceived = true;
 }
 
 
 void parseJson() {
   if (jsonreceived == true) {
-    const int BUFFER_SIZE = JSON_OBJECT_SIZE(4) + JSON_ARRAY_SIZE(0);
+    const int BUFFER_SIZE = JSON_OBJECT_SIZE(10) + JSON_ARRAY_SIZE(10);
     StaticJsonBuffer<BUFFER_SIZE> jsonBuffer;
     JsonObject& root = jsonBuffer.parseObject(json);
 
@@ -72,20 +72,31 @@ void parseJson() {
       Serial.println("parseObject() failed");
       return;
     }
-    
+
     const char* name = root["name"];
     long id = root["id"];
-    int category = root ["category"][0];
+    int category = root["category"][0];
     const char* fnct1 = root["fnct"][0];
     const char* fnct2 = root["fnct"][1];
     int cmd1 = root["cmd"][0];
-    
+    int datalength1 = root["datalength"][0];
+    int datalength2 = root["datalength"][1];
+
+
     Serial.print("Device: ");
     Serial.println(name);
     Serial.print("ID: ");
     Serial.println(id);
     Serial.print("Category: ");
     Serial.println(category);
+    Serial.print("Function: ");
+    Serial.println(fnct1);
+    Serial.print("Function: ");
+    Serial.println(fnct2);
+    Serial.print("Command for first function: ");
+    Serial.println(cmd1);
+    Serial.print("Data length first function: ");
+    Serial.println(datalength1);
 
 
   }
