@@ -24,7 +24,6 @@ int retry = 0;
 void setup() {
   delay(4000);
   Wire.begin(INITIAL_DEVICE_ADDRESS); // join i2c bus (address optional for master)
-  //Serial.begin(9600);
   pinMode(LED1, OUTPUT);
   pinMode(LED2, OUTPUT);
   for (int i = 0; i <= 3; i++) { //flash led to demonstrate setup process
@@ -103,9 +102,7 @@ void receiveEvent(int howMany) {
     Serial.println(x);
     Serial.println(NEW_DEVICE_ADDRESS);
     if ((x == DEVICE_ID) && (LED_STATE == false)) {    //if the received ID matches the own ID the new received address will be assumed
-      LED_STATE = true;
-      //Wire.begin(NEW_DEVICE_ADDRESS);   //enter bus with new assigned address
-      
+      LED_STATE = true;      
       Serial.println("New address assigned");
       SEND_DESCRIPTION = true; //sets the trigger to send the description in the next loop
       initialisation = 1;
@@ -114,14 +111,6 @@ void receiveEvent(int howMany) {
     }
     else if ((x != DEVICE_ID) && (LED_STATE == false)) {    //if the received ID doesn't match the own ID, blink led and wait for further messages
       Serial.println("wrong number");
-      /*digitalWrite(LED2, HIGH);
-      delay(200);
-      digitalWrite(LED2, LOW);
-      delay(200);
-      digitalWrite(LED1, HIGH);
-      delay(200);
-      digitalWrite(LED1, LOW);
-      delay(200); */
       initialisation = 0;
       retry = 1;
     }
