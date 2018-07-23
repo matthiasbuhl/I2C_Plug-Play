@@ -10,5 +10,9 @@ After that, you will also need the SEGGER J-Link
 Prepare the Arduino IDE with the right boards
   Follow the instruction on Infineon XMC Github page: 
   https://github.com/Infineon/XMC-for-Arduino/wiki/Implementation-in-Arduino-IDE
+  !IMPORTANT! Select the version 1.1.0 of Infineon's XMC Microcontroller Package shown in the board manager in Arduino. 
+  
+Get the ArduinoJson library
+  Open your Arduino IDE, click on "Sketch" and from "Include Library" select "Manage Libraries". You can then just type in the word "json" and select the library "ArduinoJson" and download the version 5.13.2
   
 Now you should be ready to donwload the INO files provided on this github page to flash your Infineon XMCs.
