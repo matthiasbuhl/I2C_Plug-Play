@@ -43,7 +43,7 @@ void setup() {
 }
 
 void loop() {
-  Serial.println("workin");   //print something to indicate on serial monitor, that the node is going through the loop function as long as no data is received
+  Serial.println("looping");   //print something to indicate on serial monitor, that the node is going through the loop function as long as no data is received
   delay(500);
   //request_description();    //if a new device was registered, this function triggers in the next loop and sends a request to the new device for the device description
   description();
