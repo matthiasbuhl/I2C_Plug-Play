@@ -1,0 +1,14 @@
+If you have never used Arduino before, please follow these steps to get your setup up and running:
+
+
+First you will need to download the Arduino IDE
+  Download from https://www.arduino.cc/en/Main/Software
+
+After that, you will also need the SEGGER J-Link
+  Download the J-Link Software and Documentation Pack from: https://www.segger.com/downloads/jlink
+
+Prepare the Arduino IDE with the right boards
+  Follow the instruction on Infineon XMC Github page: 
+  https://github.com/Infineon/XMC-for-Arduino/wiki/Implementation-in-Arduino-IDE
+  
+Now you should be ready to donwload the INO files provided on this github page to flash your Infineon XMCs.
